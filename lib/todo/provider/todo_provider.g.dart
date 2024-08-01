@@ -32,7 +32,7 @@ final uncompletedTodosCountProvider = AutoDisposeProvider<int>.internal(
 );
 
 typedef UncompletedTodosCountRef = AutoDisposeProviderRef<int>;
-String _$filteredTodosHash() => r'7b4117eb4c106726f887a0fc3b978e6e87406f1d';
+String _$filteredTodosHash() => r'5f6bf30db67d074bc322d5005cab1c698f787c62';
 
 /// The list of todos after applying of [todoListFilter].
 ///
@@ -94,5 +94,24 @@ final todoListProvider =
 );
 
 typedef _$TodoList = AutoDisposeNotifier<List<Todo>>;
+String _$activeTodoListFilterHash() =>
+    r'37c9971f45a3af96bf9efbc7ed9575229e69623a';
+
+/// The currently active filter.
+///
+/// Copied from [ActiveTodoListFilter].
+@ProviderFor(ActiveTodoListFilter)
+final activeTodoListFilterProvider =
+    AutoDisposeNotifierProvider<ActiveTodoListFilter, TodoListFilter>.internal(
+  ActiveTodoListFilter.new,
+  name: r'activeTodoListFilterProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$activeTodoListFilterHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$ActiveTodoListFilter = AutoDisposeNotifier<TodoListFilter>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

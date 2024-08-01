@@ -7,7 +7,7 @@ class TodoToolbar extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filter = ref.watch(todoListFilter);
+    final filter = ref.watch(activeTodoListFilterProvider);
 
     Color? textColorFor(TodoListFilter value) {
       return filter == value ? Colors.blue : Colors.black;
@@ -26,8 +26,9 @@ class TodoToolbar extends HookConsumerWidget {
           Tooltip(
             message: 'All todos',
             child: TextButton(
-              onPressed: () =>
-                  ref.read(todoListFilter.notifier).state = TodoListFilter.all,
+              onPressed: () => ref
+                  .read(activeTodoListFilterProvider.notifier)
+                  .setFilter(TodoListFilter.all),
               style: ButtonStyle(
                 visualDensity: VisualDensity.compact,
                 foregroundColor:
@@ -39,8 +40,9 @@ class TodoToolbar extends HookConsumerWidget {
           Tooltip(
             message: 'Only uncompleted todos',
             child: TextButton(
-              onPressed: () => ref.read(todoListFilter.notifier).state =
-                  TodoListFilter.active,
+              onPressed: () => ref
+                  .read(activeTodoListFilterProvider.notifier)
+                  .setFilter(TodoListFilter.active),
               style: ButtonStyle(
                 visualDensity: VisualDensity.compact,
                 foregroundColor: WidgetStateProperty.all(
@@ -53,8 +55,9 @@ class TodoToolbar extends HookConsumerWidget {
           Tooltip(
             message: 'Only completed todos',
             child: TextButton(
-              onPressed: () => ref.read(todoListFilter.notifier).state =
-                  TodoListFilter.completed,
+              onPressed: () => ref
+                  .read(activeTodoListFilterProvider.notifier)
+                  .setFilter(TodoListFilter.completed),
               style: ButtonStyle(
                 visualDensity: VisualDensity.compact,
                 foregroundColor: WidgetStateProperty.all(

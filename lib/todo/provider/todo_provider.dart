@@ -70,10 +70,18 @@ class TodoList extends _$TodoList {
 }
 
 /// The currently active filter.
-///
-/// We use [StateProvider] here as there is no fancy logic behind manipulating
-/// the value since it's just enum.
-final todoListFilter = StateProvider((_) => TodoListFilter.all);
+
+@riverpod
+class ActiveTodoListFilter extends _$ActiveTodoListFilter {
+  @override
+  TodoListFilter build() {
+    return TodoListFilter.all;
+  }
+
+  void setFilter(TodoListFilter filter) {
+    state = filter;
+  }
+}
 
 /// The number of uncompleted todos
 ///
@@ -96,7 +104,7 @@ int uncompletedTodosCount(UncompletedTodosCountRef ref) {
 
 @riverpod
 List<Todo> filteredTodos(FilteredTodosRef ref) {
-  final filter = ref.watch(todoListFilter);
+  final filter = ref.watch(activeTodoListFilterProvider);
   final todos = ref.watch(todoListProvider);
 
   switch (filter) {
